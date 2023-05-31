@@ -1,3 +1,4 @@
+use borsh::{BorshSerialize, BorshDeserialize};
 use bytemuck::{Pod, Zeroable};
 use num_derive::FromPrimitive;
 use std::mem::{align_of, size_of};
@@ -71,7 +72,7 @@ pub trait ZeroCopy: Pod {
 pub const SENTINEL: u32 = 0;
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Copy, Clone, BorshSerialize, BorshDeserialize)]
 pub struct Node<T: Copy + Clone + Pod + Zeroable + Default, const NUM_REGISTERS: usize> {
     /// Arbitrary registers (generally used for pointers)
     /// Note: Register 0 is ALWAYS used for the free list
@@ -131,7 +132,7 @@ impl<T: Copy + Clone + Pod + Zeroable + Default, const NUM_REGISTERS: usize>
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Copy, Clone, BorshSerialize, BorshDeserialize)]
 pub struct NodeAllocator<
     T: Default + Copy + Clone + Pod + Zeroable,
     const MAX_SIZE: usize,

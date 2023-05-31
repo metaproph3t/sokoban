@@ -1,3 +1,4 @@
+use borsh::{BorshSerialize, BorshDeserialize};
 use bytemuck::{Pod, Zeroable};
 use num_derive::FromPrimitive;
 use num_traits::FromPrimitive;
@@ -31,7 +32,7 @@ fn opposite(dir: u32) -> u32 {
 }
 
 #[repr(C)]
-#[derive(Default, Copy, Clone)]
+#[derive(Default, Copy, Clone, BorshSerialize, BorshDeserialize)]
 pub struct RBNode<
     K: PartialOrd + Ord + Copy + Clone + Default + Pod + Zeroable,
     V: Default + Copy + Clone + Pod + Zeroable,
@@ -64,7 +65,7 @@ impl<
 }
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Copy, Clone, BorshSerialize, BorshDeserialize)]
 pub struct RedBlackTree<
     K: PartialOrd + Ord + Copy + Clone + Default + Pod + Zeroable,
     V: Default + Copy + Clone + Pod + Zeroable,
