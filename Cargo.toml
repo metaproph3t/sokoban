@@ -20,6 +20,9 @@ edition = "2021"
 crate-type = ["lib"]
 required-features = []
 
+[features]
+idl-build = []
+
 [dependencies]
 bytemuck = "=1.13.0"
 thiserror = "=1.0.38"
