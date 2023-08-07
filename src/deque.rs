@@ -3,13 +3,14 @@ use crate::{
     FromSlice,
 };
 use bytemuck::{Pod, Zeroable};
+use borsh::{BorshSerialize, BorshDeserialize};
 
 // Register aliases
 pub const PREV: u32 = 0;
 pub const NEXT: u32 = 1;
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Copy, Clone, BorshSerialize, BorshDeserialize)]
 pub struct Deque<T: Default + Copy + Clone + Pod + Zeroable, const MAX_SIZE: usize> {
     pub sequence_number: u64,
     pub head: u32,
